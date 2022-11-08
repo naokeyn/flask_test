@@ -9,5 +9,7 @@
 !*.jpeg
 !*.ipynb
 
+!test.sqlite3
+
 !static/
 !templates/
