@@ -1,0 +1,13 @@
+*
+!.gitignore
+!*.py
+!*.md
+!*.html
+!*.css
+!*.png
+!*.jpg
+!*.jpeg
+!*.ipynb
+
+!static/
+!templates/

@@ -1,0 +1,52 @@
+{% extends 'template.html' %}
+
+{% block script %}
+
+<div class="container text-center">
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">講義名</th>
+                    <th scope="col">曜日</th>
+                    <th scope="col">教室</th>
+                    <th scope="col">教員</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(data["length"]) %}
+                <tr>
+                    <th> {{ data["name"][i] }} </th>
+                    <th> {{ data["time"][i] }} </th>
+                    <th>
+                        <a href="#">
+                            {{ data["room"][i] }}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#teacher-{{ i }}" class="btn-sm btn-outline-info" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="teacher-{{ i }}">
+                            表示
+                        </a>
+                        <div class="collapse" id="teacher-{{ i }}">
+                            {{ data["teac"][i] }}
+                        </div>
+
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <p>
+            <a class="btn btn-primary" href="/">戻る</a>
+        </p>
+    </div>
+</div>
+
+
+
+{% endblock %}
