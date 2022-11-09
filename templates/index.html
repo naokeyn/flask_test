@@ -2,24 +2,38 @@
 
 {% block script %}
 
-<div  class="text-center">
-    <h3 class="m-3">時間割検索</h3>
-
+<div class="text-center">
     <div class="container">
         <div class="row">
-            <form action="/result">
-                <div class="input-group mb-3">
-                    <input name="name" type="text" class="form-control" placeholder="講義名" aria-label="講義名" aria-describedby="button-addon2">
-                    <button formmethod="post" class="btn btn-outline-secondary" type="submit" id="button-addon2">検索</button>
+            <div class="col-md-8">
+                <h3 class="m-3">時間割検索</h3>
+                
+                <form action="/result">
+                    <div class="input-group mb-3">
+                        <input name="name" type="text" class="form-control" placeholder="講義名" aria-label="講義名"
+                            aria-describedby="button-addon2">
+                        <button formmethod="post" class="btn btn-outline-secondary" type="submit"
+                            id="button-addon2">検索</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div class="border border-1 rounded m-3" style="background-color: whitesmoke;">
+                    <div class="row p-2">
+                        <h5>
+                            絞り込み
+                        </h5>    
+                    </div>
+                    <div class="row pb-2">
+                        <form action="/all">
+                            <button class="btn btn-outline-primary" formmethod="post">
+                                全て表示
+                            </button>
+                        </form>    
+                    </div>
                 </div>
-            </form>                    
-        </div>
-        <div class="row">
-            <form action="/all">
-                <button class="btn btn-primary" formmethod="post">
-                    show all
-                </button>
-            </form>
+            </div>
+
         </div>
     </div>
 </div>
