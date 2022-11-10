@@ -18,7 +18,7 @@ def page_not_found(error):
     return render_template("page_not_found.html"), 404
 
 @app.route("/", methods=["GET"])
-def Hello():
+def index():
     return render_template("index.html")
    
 @app.route("/result", methods=["POST", "GET"])
@@ -30,13 +30,10 @@ def result():
         # フォームに入力された文字列を取得
         query = request.form["name"]
         
-        # 部分一致のindexを調べる
-        # index = return_index(query)
-        
         index = [i for i in range(len(data_base)) if query in data_base.loc[i, "subject_name"]]
 
-        # 一致する講義名がない場合
-        if len(index) == 0:
+        # 一致する講義名がない or queryがNULLのとき
+        if len(index) == 0 or query == "":
             return render_template("page_not_found.html")
         
         else:
@@ -63,8 +60,6 @@ def show_all():
         "room" : df["room"].tolist(),
         "length" : len(df)
     }
-    
-    # data = {"lec":lec_list, "period":per_list, "room":room_list, "length":length}
     
     return render_template("show_all.html", data=data)
     

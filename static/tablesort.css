@@ -1,0 +1,19 @@
+.tablesorter-headerUnSorted {
+    background-image: url('arrow-down-up.svg');
+    background-repeat: no-repeat;
+    background-position: center right;
+}
+
+.tablesorter-headerAsc {
+    background-image: url('caret-up.svg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    border-bottom: #000 2px solid;
+}
+
+.tablesorter-headerDesc {
+    background-image: url('caret-down.svg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    border-bottom: #000 2px solid;
+}
