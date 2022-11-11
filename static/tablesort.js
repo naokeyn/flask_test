@@ -5,24 +5,32 @@ $.tablesorter.addParser({
     is: function (s) {
         return false;
     },
+
+    // 曜日 + 時限 を4桁の整数で置き換える
+    // 例 : 月1~3 -> "0130"，火2,木2 -> 1232
+    // 集中 -> 9999, 卒研 -> 9998
     format: function (s) {
-        days = ["月", "火", "水", "木", "金", "土", "日"]
-        maxi = 10
+        const days = ["月", "火", "水", "木", "金", "土", "日"]
+        const remove_char = [",", "(", ")", "〜"]
+
+        for (let i = 0; i < remove_char.length; i++) {
+            s = s.replace(remove_char[i], "")
+        }
 
         if (s.includes("集中")) {
-            s = "998"
+            s = "9999"
         } else if (s.includes("卒研")) {
-            s = "999"
+            s = "9998"
         } else {
             for (let i = 0; i < days.length; i++) {
-                for (let j = 0; j < maxi; j++) {
-                    if (s.includes(days[i] + j)) {
-                        s = String(i * maxi + j)
-                        //break
-                    }
-                }
+                // 正規表現で全置換
+                var day = new RegExp(days[i], 'gu')
+                s = s.replace(day, i)
             }
         }
+
+        // 4桁に整える
+        s = String(s + "00").slice(0, 4)
 
         return s;
     },
@@ -32,8 +40,7 @@ $.tablesorter.addParser({
 $(document).ready(function () {
     $('#table').tablesorter({
         headers: {
-            // 曜日のソート
-            1: { sorter: 'jpdays' }
+            1: { sorter: 'jpdays' } // 曜日のソート
         }
     });
 });
