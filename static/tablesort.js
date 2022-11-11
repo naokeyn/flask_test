@@ -13,10 +13,12 @@ $.tablesorter.addParser({
         const days = ["月", "火", "水", "木", "金", "土", "日"]
         const remove_char = [",", "(", ")", "〜"]
 
+        // 不要な文字を消去
         for (let i = 0; i < remove_char.length; i++) {
             s = s.replace(remove_char[i], "")
         }
 
+        // 数字に置き換え
         if (s.includes("集中")) {
             s = "9999"
         } else if (s.includes("卒研")) {
