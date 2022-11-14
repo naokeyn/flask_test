@@ -27,7 +27,7 @@ deactivate
 
 ### フロントエンド
 - HTML/CSS
-- jQuery
+    - JavaScript(jQuery)
 - BootStrap
 
 ### データベース
