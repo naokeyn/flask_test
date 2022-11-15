@@ -52,7 +52,7 @@ def result():
     
 @app.route("/all", methods=["GET", "POST"])
 def show_all():
-    df = data_base.sort_values("room", ascending=False)
+    df = data_base.sort_values("subject_name", ascending=True)
     
     data = {
         "lec" : df["subject_name"].tolist(),
