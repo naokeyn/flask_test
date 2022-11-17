@@ -11,7 +11,11 @@
 !*.jpeg
 !*.ipynb
 
+!*.graphml
+
 !test.sqlite3
 
 !static/
 !templates/
+!static/map_ctrl/
+!static/map_ctrl/image/

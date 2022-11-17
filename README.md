@@ -34,9 +34,8 @@ deactivate
 ├── static
 │   ├── tablesort.css
 │   ├── tablesort.js
-│   └── img
-├── map_ctrl
-│   ├── img
+│   ├── icon, tag, etc.
+│   ├── image
 │   └── road_network.graphml
 ├── main.py
 ├── create_map.py
