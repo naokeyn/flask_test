@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, redirect
 from sqlalchemy import create_engine
 
 import pandas as pd
+import numpy as np
+
+import MapData
+from create_map import create_map
 
 app = Flask(__name__)
 
@@ -12,6 +16,8 @@ data_base = pd.read_sql("select * from df", engine)
 # 講義名のリスト
 names = data_base["subject_name"].tolist()
 
+# ゴールとなる建物名のリスト
+buildings = list(MapData.data.keys())[3:]
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -38,11 +44,11 @@ def result():
         
         else:
             df = data_base.loc[index, :]
-            df = df.sort_values("room", ascending=False)
+            df = df.sort_values("subject_name", ascending=True)
             
             data = {
                 "name": df["subject_name"].tolist(),
-                "time": df[ "day_period"].tolist(),
+                "time": df["day_period"].tolist(),
                 "teac": df["teacher"].tolist(),
                 "room": df["room"].tolist(),
                 "length": len(index)
@@ -63,6 +69,16 @@ def show_all():
     
     return render_template("show_all.html", data=data)
     
+@app.route("/map")
+def map():
+    global buildings
+    start = "正門"
+    idx = np.random.randint(len(buildings))
+    end = buildings[idx]
+    
+    d, t = create_map(start, end)
+    
+    return render_template("road_network.html")
 
 # @app.route("/<text>")
 # def text(text):

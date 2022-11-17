@@ -22,8 +22,32 @@ deactivate
 
 ## プログラムの構成
 
+```
+.
+├── templates
+│   ├── template.html
+│   ├── index.html
+│   ├── show_all.html
+│   ├── result.html
+│   ├── page_not_found.html
+│   └── road_networl.html
+├── static
+│   ├── tablesort.css
+│   ├── tablesort.js
+│   └── img
+├── map_ctrl
+│   ├── img
+│   └── road_network.graphml
+├── main.py
+├── create_map.py
+├── MapData.py
+└── db.sqlite3
+```
+
 ### サーバサイド
-- Flask
+- Python
+  - Flask
+  - osmnx, folium, networkx
 
 ### フロントエンド
 - HTML/CSS
@@ -34,6 +58,31 @@ deactivate
 - sqlite3
 - SQLAlchemy
 
+
+## 備忘録
+### Pythonanywhere
+#### 注意点
+パスが通らないことがある
+`mysite`の下に通すと上手くいく
+`flask_app.py`のデータベースのパスを次のように変更
+```python
+engine = create_engine('sqlite:///mysite/test.sqlite3')
+```
+`create_map.py`の74行目を次のように変更
+```pyhton
+folium_path_outfile = "mysite/templates/road_network.html"
+```
+
+#### コマンド(Buch console)
+packageの追加
+```
+pip3.10 install --user package
+```
+
+容量の確認
+```
+du -hs /tmp ~/.[!.]* ~/* | sort -h
+```
 
 ## 参考
 
