@@ -79,6 +79,4 @@ def create_map(start_name, end_name):
     minutes = str(round(nx.shortest_path_length(
         G, start_node, end_node, weight='length') / 85.2))
 
-    return distance, minutes
-
-# create_map("正門", "総合研究棟1号館")
+    return new_map, distance, minutes

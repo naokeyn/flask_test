@@ -9,7 +9,7 @@
 !*.png
 !*.jpg
 !*.jpeg
-!*.ipynb
+# !*.ipynb
 
 !*.graphml
 
