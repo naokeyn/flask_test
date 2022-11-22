@@ -72,7 +72,7 @@ def create_map(start_name, end_name):
 
     # 経路案内マップの出力
     folium_path_outfile = "templates/road_network.html"
-    new_map.save(outfile=str(folium_path_outfile))
+    # new_map.save(outfile=str(folium_path_outfile))
 
     distance = str(round(nx.shortest_path_length(
         G, start_node, end_node, weight='length')))
