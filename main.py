@@ -12,7 +12,7 @@ from create_map import create_map
 app = Flask(__name__)
 
 # データベースの読み込み
-engine = create_engine("sqlite:///test.sqlite3", encoding="utf-8", echo=False)
+engine = create_engine("sqlite:///db.sqlite3", encoding="utf-8", echo=False)
 data_base = pd.read_sql("select * from df", engine)
 
 # 講義名のリスト
@@ -39,16 +39,25 @@ def result():
 
     else:
         # フォームに入力された文字列を取得
-        query = request.form["name"]
+        value = request.form["name"].split(", ")
+
+        # リダイレクトか判定
+        if len(value) == 2:
+            query, r = value[0], True
+        else:
+            query, r = value[0], False
 
         index = [i for i in range(len(data_base))
                  if query in data_base.loc[i, "subject_name"]]
 
+        # 検索結果の上限
+        max_hit = 50
+        
         # 一致する講義名がない or queryがNULLのとき
         if len(index) == 0 or query == "":
             return render_template("page_not_found.html")
 
-        else:
+        elif len(index) <= max_hit or r:
             df = data_base.loc[index, :]
             df = df.sort_values("subject_name", ascending=True)
 
@@ -57,12 +66,21 @@ def result():
                 "time": df["day_period"].tolist(),
                 "teac": df["teacher"].tolist(),
                 "room": df["room"].tolist(),
-                "length": len(index)
+                "length": len(index),
+                "query": query
             }
 
             return render_template("result.html", data=data)
 
-
+        else:
+            data = {
+                "length": len(index),
+                "query" : query
+            }
+            
+            return render_template("overflow.html", data=data) 
+        
+        
 @app.route("/all", methods=["GET", "POST"])
 def show_all():
     df = data_base.sort_values("subject_name", ascending=True)

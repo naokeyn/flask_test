@@ -3,6 +3,11 @@
 {% block script %}
 
 <div class="container">
+    <div class="row">
+        <p>
+            全{{ data["length"] }}件（キーワード：{{ data["query"] }}）
+        </p>
+    </div>
 
     <div class="row">
         <table class="table table-bordered" id="table">
@@ -25,8 +30,8 @@
                         </a>
                     </th>
                     <th>
-                        <a href="#teacher-{{ i }}" class="btn-sm btn-outline-info" data-bs-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="teacher-{{ i }}">
+                        <a href="#teacher-{{ i }}" class="btn-sm btn-outline-info" data-bs-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="teacher-{{ i }}">
                             表示
                         </a>
                         <div class="collapse" id="teacher-{{ i }}">

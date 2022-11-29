@@ -1,0 +1,23 @@
+{% extends 'template.html' %}
+
+{% block script %}
+
+<div class="container">
+    <div class="row text-center">
+        <p>
+            検索結果が多いため表示に時間がかかります（全{{ data["length"] }}件）
+        </p>
+        <p>
+            <a href="/" class="btn btn-primary">
+                戻る
+            </a>
+            <form action="/result" method="post">
+                <button class="btn btn-danger" name="name" value="{{ data['query'] }}, r">
+                    表示
+                </button>
+            </form>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
