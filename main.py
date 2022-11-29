@@ -52,7 +52,7 @@ def result():
 
         # 検索結果の上限
         max_hit = 50
-        
+
         # 一致する講義名がない or queryがNULLのとき
         if len(index) == 0 or query == "":
             return render_template("page_not_found.html")
@@ -75,12 +75,12 @@ def result():
         else:
             data = {
                 "length": len(index),
-                "query" : query
+                "query": query
             }
-            
-            return render_template("overflow.html", data=data) 
-        
-        
+
+            return render_template("overflow.html", data=data)
+
+
 @app.route("/all", methods=["GET", "POST"])
 def show_all():
     df = data_base.sort_values("subject_name", ascending=True)
@@ -104,10 +104,10 @@ def map():
 
     map, d, t = create_map(start, end)
     map = map._repr_html_()
-    
+
     iframe = BeautifulSoup(map, "html.parser")
     iframe = iframe.select_one("iframe")
-    
+
     data = {
         "map": Markup(iframe),
         "distance": d,
