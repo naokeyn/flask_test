@@ -62,12 +62,14 @@ def result():
             df = df.sort_values("subject_name", ascending=True)
 
             data = {
-                "name": df["subject_name"].tolist(),
-                "time": df["day_period"].tolist(),
-                "teac": df["teacher"].tolist(),
-                "room": df["room"].tolist(),
-                "length": len(index),
-                "query": query
+                "name": df["subject_name"].tolist(),        # 講義名
+                "time": df["day_period"].tolist(),          # 曜日 + 時限
+                # "teac": df["teacher"].tolist(),             # 教員名
+                "room": df["room"].tolist(),                # 教室
+                "buil": df["building"].tolist(),            # 建物名
+                "syll": df["link"].tolist(),                # シラバスのリンク
+                "length": len(index),                       # データの長さ
+                "query": query                              # 検索キーワード
             }
 
             return render_template("result.html", data=data)
@@ -95,12 +97,18 @@ def show_all():
     return render_template("show_all.html", data=data)
 
 
-@app.route("/map")
+@app.route("/map", methods=["POST"])
 def map():
     global buildings
+    end = request.form["end"]
+    
+    # 建物名が見つからなかったとき
+    if end not in buildings:
+        return 404
+    
     start = "正門"
-    idx = np.random.randint(len(buildings))
-    end = buildings[idx]
+    # idx = np.random.randint(len(buildings))
+    # end = buildings[idx]
 
     map, d, t = create_map(start, end)
     map = map._repr_html_()
