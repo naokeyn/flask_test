@@ -21,15 +21,26 @@
                 <div class="border border-1 rounded m-3" style="background-color: whitesmoke;">
                     <div class="row p-2">
                         <h5>
-                            絞り込み
+                            オプション
                         </h5>    
                     </div>
-                    <div class="row pb-2">
-                        <form action="/all">
-                            <button class="btn btn-outline-primary" formmethod="post">
-                                全て表示
-                            </button>
-                        </form>    
+                    <div class="row pb-2 text-center">
+                        <div class="col">
+                            <form action="/all">
+                                <button class="btn btn-outline-primary" formmethod="post">
+                                    全て表示
+                                </button>
+                            </form>
+                            
+                        </div>
+                        <div class="col">
+                            <p>
+                                <a href="/map" class="btn btn-outline-info">
+                                    地図
+                                </a>
+                            </p>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

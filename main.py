@@ -18,8 +18,10 @@ data_base = pd.read_sql("select * from df", engine)
 # 講義名のリスト
 names = data_base["subject_name"].tolist()
 
+# 始点となる場所のリスト
+starts = list(MapData.data.keys())[:3]
 # ゴールとなる建物名のリスト
-buildings = list(MapData.data.keys())[3:]
+ends = list(MapData.data.keys())[3:]
 
 
 @app.errorhandler(404)
@@ -97,18 +99,28 @@ def show_all():
     return render_template("show_all.html", data=data)
 
 
-@app.route("/map", methods=["POST"])
+@app.route("/map", methods=["GET", "POST"])
 def map():
-    global buildings
-    end = request.form["end"]
+    global starts, ends
+
+    if request.method == "GET":
+        start = "正門"
+        end = "大学会館"
     
-    # 建物名が見つからなかったとき
-    if end not in buildings:
-        return 404
+    else:
+        try:
+            start = request.form["start"]
+        except:
+            start = "正門"
+            
+        end = request.form["end"]
+        
+        # 建物名が見つからなかったとき
+        if end not in ends:
+            return 404
     
-    start = "正門"
-    # idx = np.random.randint(len(buildings))
-    # end = buildings[idx]
+    # idx = np.random.randint(len(ends))
+    # end = ends[idx]
 
     map, d, t = create_map(start, end)
     map = map._repr_html_()
@@ -119,10 +131,12 @@ def map():
     data = {
         "map": Markup(iframe),
         "distance": d,
-        "time": t
+        "time": t,
+        "start": start,
+        "end": end
     }
 
-    return render_template("map.html", data=data)
+    return render_template("map.html", data=data, starts=starts, ends=ends)
 
 # @app.route("/<text>")
 # def text(text):

@@ -3,7 +3,62 @@
 {% block script %}
 
 <html>
-    {{ data.map }}
+<div class="container">
+    <div class="row">
+        <p>
+            <a href="/" class="btn btn-outline-primary">戻る</a>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-8 position-relative">
+            <div class="position-absolue" style="height: 70vh;">
+                {{ data.map }}
+            </div>
+        </div>
+
+        <div class="col-md-4 rounded-3 border border-secondary">
+
+            <form action="/map" method="post">
+                スタート
+                <select name="start" class="form-select">
+                    {% for i in starts %}   
+                        <option 
+                            value="{{ i }}"
+                            {% if i==data.start %}
+                            selected
+                            {% endif %}
+                            >
+                            {{ i }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <br>
+                ゴール
+                <select name="end" class="form-select">
+                    {% for i in ends %}
+                        <option value="{{i}}"
+                        {% if i==data.end %}
+                        selected
+                        {% endif%}
+                        >{{i}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button type="submit" class="btn btn-outline-info">検索</button>
+            </form>
+
+            <p>
+                距離：{{ data.distance }}[m],
+                <br>
+                歩いて約 {{ data.time }} [分]
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+
 </html>
 
 {% endblock %}
