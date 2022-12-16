@@ -87,16 +87,22 @@ def result():
 
 @app.route("/all", methods=["GET", "POST"])
 def show_all():
-    df = data_base.sort_values("subject_name", ascending=True)
-
+    df = data_base.copy()
+    query = "すべて"
+    
     data = {
-        "lec": df["subject_name"].tolist(),
-        "period": df["day_period"].tolist(),
-        "room": df["room"].tolist(),
-        "length": len(df)
-    }
+            "name": df["subject_name"].tolist(),        # 講義名
+            "time": df["day_period"].tolist(),          # 曜日 + 時限
+            # "teac": df["teacher"].tolist(),             # 教員名
+            "room": df["room"].tolist(),                # 教室
+            "buil": df["building"].tolist(),            # 建物名
+            "syll": df["link"].tolist(),                # シラバスのリンク
+            "length": len(df),                       # データの長さ
+            "query": query                              # 検索キーワード
+        }
 
-    return render_template("show_all.html", data=data)
+    
+    return render_template('result.html', data=data)
 
 
 @app.route("/map", methods=["GET", "POST"])
