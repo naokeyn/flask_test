@@ -23,6 +23,84 @@
   <key id="d1" for="graph" attr.name="created_with" attr.type="string" />
   <key id="d0" for="graph" attr.name="created_date" attr.type="string" />
   <graph edgedefault="directed">
+
+    <node id="100">
+      <data key="d4">35.858734</data>
+      <data key="d5">139.607152</data>
+      <data key="d7">4</data>
+    </node>
+
+    <node id="101">
+      <data key="d4">35.860302</data>
+      <data key="d5">139.608783</data>
+      <data key="d7">4</data>
+    </node>
+
+    <node id="102">
+      <data key="d4">35.860614</data>
+      <data key="d5">139.606056</data>
+      <data key="d7">4</data>
+    </node>
+
+
+    <edge source="3194917180" target="102" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+    <edge source="102" target="3194917180" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+    
+    
+    <!-- エッジは往復で設定する -->
+    <edge source="102" target="100" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+    <edge source="100" target="102" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+
+
+    <edge source="102" target="101" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+    <edge source="101" target="102" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+
+
+    <edge source="100" target="101" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+    <edge source="101" target="100" id="0">
+      <data key="d15">False</data>
+      <data key="d12">service</data>
+      <data key="d16">False</data>
+      <data key="d17">10</data>
+    </edge>
+    
+
+
     <node id="314205773">
       <data key="d4">35.8655065</data>
       <data key="d5">139.6073738</data>
