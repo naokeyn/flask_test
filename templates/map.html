@@ -1,8 +1,21 @@
 {% extends 'template.html' %}
 
+{% block header %}
+
+<link rel="stylesheet" href="../static/map_loading.css">
+
+{% endblock %}
+
 {% block script %}
 
 <html>
+
+<div id="loading" class="text-center">
+    <div class="loader">
+        loading...
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <p>
@@ -21,16 +34,14 @@
             <form name="node" action="/map" method="post">
                 スタート
                 <select name="start" class="form-select" id="start" onchange="rewrite('end')">
-                    {% for i in starts %}   
-                        <option 
-                            value="{{ i }}"
-                            {% if i==data.start %}
-                                selected
-                            {% endif %}
-                            {% if i==data.end %}
-                                disabled
-                            {% endif %}
-                            >
+                    {% for i in starts %}
+                        <option value="{{ i }}" 
+                                {% if i==data.start %} 
+                                    selected 
+                                {% endif %} 
+                                {% if i==data.end %} 
+                                    disabled 
+                                {% endif %}>
                             {{ i }}
                         </option>
                     {% endfor %}
@@ -39,14 +50,15 @@
                 ゴール
                 <select name="end" class="form-select" id="end" onchange="rewrite('start')">
                     {% for i in ends %}
-                        <option value="{{i}}"
-                        {% if i==data.end %}
-                            selected
-                        {% endif%}
-                        {% if i==data.start %}
-                                disabled
-                        {% endif %}
-                        >{{i}}</option>
+                        <option value="{{i}}" 
+                            {% if i==data.end %}
+                                selected 
+                            {% endif%} 
+                            {% if i==data.start %} 
+                                disabled 
+                            {% endif %}>
+                            {{i}}
+                        </option>
                     {% endfor %}
                 </select>
                 <br>
@@ -67,6 +79,6 @@
 
 </html>
 
-<script src="../static/main.js"></script>
+<script src="../static/map.js"></script>
 
 {% endblock %}
