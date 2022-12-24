@@ -18,14 +18,17 @@
 
         <div class="col-md-4 rounded-3 border border-secondary">
 
-            <form action="/map" method="post">
+            <form name="node" action="/map" method="post">
                 スタート
-                <select name="start" class="form-select">
+                <select name="start" class="form-select" id="start" onchange="rewrite('end')">
                     {% for i in starts %}   
                         <option 
                             value="{{ i }}"
                             {% if i==data.start %}
-                            selected
+                                selected
+                            {% endif %}
+                            {% if i==data.end %}
+                                disabled
                             {% endif %}
                             >
                             {{ i }}
@@ -34,12 +37,15 @@
                 </select>
                 <br>
                 ゴール
-                <select name="end" class="form-select">
+                <select name="end" class="form-select" id="end" onchange="rewrite('start')">
                     {% for i in ends %}
                         <option value="{{i}}"
                         {% if i==data.end %}
-                        selected
+                            selected
                         {% endif%}
+                        {% if i==data.start %}
+                                disabled
+                        {% endif %}
                         >{{i}}</option>
                     {% endfor %}
                 </select>
@@ -60,5 +66,7 @@
 
 
 </html>
+
+<script src="../static/main.js"></script>
 
 {% endblock %}

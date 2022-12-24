@@ -18,10 +18,8 @@ data_base = pd.read_sql("select * from df", engine)
 # 講義名のリスト
 names = data_base["subject_name"].tolist()
 
-# 始点となる場所のリスト
-starts = list(MapData.data.keys())[:3]
-# ゴールとなる建物名のリスト
-ends = list(MapData.data.keys())[3:]
+# 選択可能な建物のリスト
+nodes = list(MapData.data.keys()) # [:3]
 
 
 @app.errorhandler(404)
@@ -107,8 +105,8 @@ def show_all():
 
 @app.route("/map", methods=["GET", "POST"])
 def map():
-    global starts, ends
-
+    global nodes
+    
     if request.method == "GET":
         start = "正門"
         end = "大学会館"
@@ -122,7 +120,7 @@ def map():
         end = request.form["end"]
         
         # 建物名が見つからなかったとき
-        if end not in ends:
+        if end not in nodes:
             return 404
     
     # idx = np.random.randint(len(ends))
@@ -142,7 +140,7 @@ def map():
         "end": end
     }
 
-    return render_template("map.html", data=data, starts=starts, ends=ends)
+    return render_template("map.html", data=data, starts=nodes, ends=nodes)
 
 # @app.route("/<text>")
 # def text(text):
