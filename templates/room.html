@@ -1,0 +1,75 @@
+{% extends "template.html" %}
+
+{% block header %}
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+{% endblock %}
+
+{% block script %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            ※シラバスに記載されている教室名に準拠しています．
+        </div>
+    </div>
+    <form action="/room-result">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="input-group mb-3">
+
+                    <span class="input-group-text" id="basic-addon1">出発</span>
+                    <input id="start" name="start-room" type="text" class="form-control" placeholder="教室名"
+                        aria-label="教室名" aria-describedby="basic-addon1">
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-2 text-center mb-3">
+                <button type="button" class="btn btn-secondary" onclick="change()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                        <path
+                            d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
+                        <path fill-rule="evenodd"
+                            d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="col-sm-5">
+                <div class="input-group mb-3">
+
+                    <span class="input-group-text" id="basic-addon2">到着</span>
+                    <input id="end" name="end-room" type="text" class="form-control" placeholder="教室名" aria-label="教室名"
+                        aria-describedby="basic-addon2">
+
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col">
+                <button class="btn btn-primary" formmethod="post" type="submit">検索</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<script src="../static/room-name.js"></script>
+<script src="../static/room.js"></script>
+
+{% if msg %}
+
+    <script>
+        alert("{{ msg }}")
+    </script>
+
+{% endif %}
+
+{% endblock %}

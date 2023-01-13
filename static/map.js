@@ -1,6 +1,6 @@
-window.onload = function() {
-    const loading = document.getElementById('loading');
-    loading.classList.add('loaded');
+window.onload = () => {
+    let loading = document.getElementById('loading')
+    loading.classList.add('loaded')
 }
 
 let rewrite = (target) => {
@@ -9,7 +9,8 @@ let rewrite = (target) => {
 
     if (target == "start") {
         source = "end"
-    } else {
+    }
+    else {
         source = "start"
     }
 
