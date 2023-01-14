@@ -37,12 +37,15 @@ def map_data(start, end):
     iframe = BeautifulSoup(map, "html.parser")
     iframe = iframe.select_one("iframe")
 
+    route = route.split("\n")
+    
     data = {
         "map": Markup(iframe),
         "distance": d,
         "time": t,
         "start": start,
-        "end": end
+        "end": end,
+        "route": route
     }
 
     return data
@@ -201,11 +204,6 @@ def room_result():
         return redirect(url_for("room", msg='お探しの教室が見つかりませんでした'))
     
     return redirect(url_for('map', start=start, end=end))
-
-
-# @app.route("/<text>")
-# def text(text):
-#     return render_template("hello.html", text=text)
 
 
 if __name__ == "__main__":

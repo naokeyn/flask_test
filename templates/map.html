@@ -19,7 +19,9 @@
 <div class="container">
     <div class="row">
         <p>
-            <a href="/" class="btn btn-outline-primary">戻る</a>
+            <button type="button" onclick="history.back()" class="btn btn-outline-primary">
+                戻る
+            </button>
         </p>
     </div>
     <div class="row">
@@ -29,50 +31,113 @@
             </div>
         </div>
 
-        <div class="col-md-4 rounded-3 border border-secondary">
+        <div class="col-md-4">
 
-            <form name="node" action="/map" method="post">
-                スタート
-                <select name="start" class="form-select" id="start" onchange="rewrite('end')">
-                    {% for i in starts %}
-                        <option value="{{ i }}" 
-                                {% if i==data.start %} 
-                                    selected 
-                                {% endif %} 
-                                {% if i==data.end %} 
-                                    disabled 
-                                {% endif %}>
+
+            <div class="container m-0 p-2">
+                <div class="row rounded-3 p-1 mb-1 mt-1" style="border: solid 3px #0099cc;">
+                    <div class="col d-flex align-items-center">
+                        <div>
+                            <p>
+                                距離：{{ data.distance }}[m]
+                            </p>
+                            <p>
+                                歩いて約 {{ data.time }} [分]
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col overflow-scroll " style="height: 150px; background-color: whitesmoke;">
+
+                        {{ data.start }}
+                        {% for i in data.route %}
+                        <p class="p-0 m-0">
                             {{ i }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <br>
-                ゴール
-                <select name="end" class="form-select" id="end" onchange="rewrite('start')">
-                    {% for i in ends %}
-                        <option value="{{i}}" 
-                            {% if i==data.end %}
-                                selected 
-                            {% endif%} 
-                            {% if i==data.start %} 
-                                disabled 
-                            {% endif %}>
-                            {{i}}
-                        </option>
-                    {% endfor %}
-                </select>
-                <br>
-                <button type="submit" class="btn btn-outline-info">検索</button>
-            </form>
+                        </p>
+                        {% endfor %}
+                        {{ data.end }}
+                    </div>
+                </div>
 
-            <p>
-                距離：{{ data.distance }}[m],
-                <br>
-                歩いて約 {{ data.time }} [分]
-            </p>
+                <div class="row rounded-3 p-1 mt-1" style="border: solid 3px #0099cc;">
+
+                    <form name="node" action="/map" method="post" class="container m-0 p-0">
+
+                        <div class="row mt-1 mb-1 d-flex align-items-center" style="height: 60;">
+                            <div class="col-2 mt-1 text-center" style="color: #72b026;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-flag" viewBox="0 0 16 16">
+                                    <path
+                                        d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21.294 21.294 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21.317 21.317 0 0 0 14 7.655V1.222z" />
+                                </svg>
+                                <p class="text-sm p-0 m-0">
+                                    start
+                                </p>
+                            </div>
+                            <div class="col-10">
+                                <select name="start" class="form-select" id="start" onchange="rewrite('end')">
+                                    {% for i in starts %}
+                                    <option value="{{ i }}" {% if i==data.start %} selected {% endif %} {% if
+                                        i==data.end %} disabled {% endif %}>
+                                        {{ i }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row text-center">
+                            <div class="col">
+                                <button class="btn btn-outline-secondary" type="button" onclick="change()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row mt-1 mb-1 d-flex align-items-center" style="height: 60;">
+                            <div class="col-2 mt-1 text-center" style="color: #d63e2a;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-flag" viewBox="0 0 16 16">
+                                    <path
+                                        d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21.294 21.294 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21.317 21.317 0 0 0 14 7.655V1.222z" />
+                                </svg>
+                                <p class="text-sm p-0 m-0">
+                                    goal
+                                </p>
+                            </div>
+                            <div class="col-10">
+                                <select name="end" class="form-select" id="end" onchange="rewrite('start')">
+                                    {% for i in ends %}
+                                    <option value="{{i}}" {% if i==data.end %} selected {% endif%} {% if i==data.start
+                                        %} disabled {% endif %}>
+                                        {{i}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-2">
+                            <button type="submit" class="btn btn-outline-info">検索</button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+
+
+
 
         </div>
     </div>
+
+
 
 </div>
 
@@ -80,5 +145,23 @@
 </html>
 
 <script src="../static/map.js"></script>
+<script>
+    // 目的地と出発地の入れ替え
+    let change = () => {
+
+        const start = document.getElementById("start")
+        const end = document.getElementById("end")
+
+        let start_value = start.value
+        let end_value = end.value
+
+        start.value = end_value
+        end.value = start_value
+
+        rewrite("start")
+        rewrite("end")
+
+    }
+</script>
 
 {% endblock %}
