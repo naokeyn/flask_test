@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, Markup
+from flask import Flask, render_template, \
+    request, redirect, url_for, Response, Markup
+
 from sqlalchemy import create_engine
+from bs4 import BeautifulSoup
 
 import pandas as pd
-
-from bs4 import BeautifulSoup
 
 import MapData
 from create_map import create_map
@@ -25,8 +26,12 @@ nodes = list(MapData.data.keys())  # [:3]
 
 # map のデータを reshape
 def map_data(start, end):
-
-    map, d, t = create_map(start, end)
+    global nodes
+    
+    if (start not in nodes) or (end not in nodes):
+        return False
+    
+    map, d, t, route = create_map(start, end)
     map = map._repr_html_()
 
     iframe = BeautifulSoup(map, "html.parser")
@@ -43,9 +48,14 @@ def map_data(start, end):
     return data
 
 
+@app.errorhandler(400)
+def invalid_request(error):
+    return render_template("400.html"), 400
+
+
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template("page_not_found.html"), 404
+    return render_template("404.html"), 404
 
 
 @app.route("/", methods=["GET"])
@@ -76,7 +86,7 @@ def result():
 
         # 一致する講義名がない or queryがNULLのとき
         if len(index) == 0 or query == "":
-            return render_template("page_not_found.html")
+            return render_template("404.html"), 404
 
         elif len(index) <= max_hit or r:
             df = data_base.loc[index, :]
@@ -126,21 +136,18 @@ def show_all():
 @app.route("/map", methods=["GET", "POST"])
 def map():
     global nodes
-
-    if request.method == "GET":
     
-        # url にクエリが存在するとき
-        try:
-            # url のクエリを抽出
+    if request.method == "GET":
+        # クエリパラメータが存在するとき
+        if request.args:
             start = request.args.get("start")
             end = request.args.get("end")
-
-        # url にクエリが存在しないとき
-        except:
-            # デフォルト値を設定
+        
+        # クエリパラメータが存在しないとき
+        # デフォルト値を設定
+        else:        
             start = "正門"
             end = "大学会館"
-
         
     # method が post のとき
     else:
@@ -156,9 +163,12 @@ def map():
 
         # 建物名が見つからなかったとき
         if end not in nodes:
-            return 404
+            return render_template("400.html"), 400
 
     data = map_data(start, end)
+    
+    if not data:
+        return render_template("400.html"), 400
 
     return render_template("map.html", data=data, starts=nodes, ends=nodes)
 
