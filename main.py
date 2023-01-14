@@ -1,5 +1,5 @@
 from flask import Flask, render_template, \
-    request, redirect, url_for, Response, Markup
+    request, redirect, url_for, Markup
 
 from sqlalchemy import create_engine
 from bs4 import BeautifulSoup
