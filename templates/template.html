@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="埼玉大学生のための教室検索サイトです。講義名を入力すれば開講される教室のある建物までの経路を正門、西門、東門の任意の門から案内します。" />
     <!-- アイコン -->
-    <link rel="icon" href="../static/icon.jpg">
+    <link rel="icon" href="../static/icon.png">
 
     <!-- BootStrap の読み込み -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,7 +16,28 @@
     <title>OMNI LEADER</title>
 </head>
 
-<body>
+<body style="padding-top: 90px;">
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="../static/icon.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                OMNI LEADER
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/map">地図</a>
+                    <a class="nav-link" href="/all">すべて表示</a>
+                    <a class="nav-link" href="/room">教室名から検索</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     {% block script %}{% endblock %}
 
     <!-- BootStrap の読み込み -->

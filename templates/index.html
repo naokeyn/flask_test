@@ -2,12 +2,26 @@
 
 {% block script %}
 
+<style>
+    .bg-mt-img {
+        height: 80vh;
+        background-image: url("../static/bg-mountain.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-color: rgba(255, 255, 255, 0.8);
+        background-blend-mode: lighten;
+    }
+</style>
+
 <div class="text-center">
     <div class="container">
-        <div class="row">
+        <div class="row d-flex align-items-center bg-mt-img">
+            <div class="d-none d-md-block col-md-2">
+
+            </div>
             <div class="col-md-8">
                 <h3 class="m-3">時間割検索</h3>
-                
+
                 <form action="/result">
                     <div class="input-group mb-3">
                         <input name="name" type="text" class="form-control" placeholder="講義名" aria-label="講義名"
@@ -17,40 +31,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4">
-                <div class="border border-1 rounded m-3" style="background-color: whitesmoke;">
-                    <div class="row p-2">
-                        <h5>
-                            オプション
-                        </h5>    
-                    </div>
-                    <div class="row pb-2 text-center">
-                        <div class="col">
-                            <form action="/all">
-                                <button class="btn btn-outline-primary" formmethod="post">
-                                    全て表示
-                                </button>
-                            </form>
-                            
-                        </div>
-                        <div class="col">
-                            <p>
-                                <a href="/map" class="btn btn-outline-info">
-                                    地図
-                                </a>
-                            </p>
-                        </div>
-                        <div class="col">
-                            <p>
-                                <a href="/room" class="btn btn-outline-warning">
-                                    教室名から検索
-                                </a>
-                            </p>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
+
 
         </div>
     </div>
