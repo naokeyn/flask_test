@@ -1,5 +1,6 @@
 import os                   # ファイルパスの指定に使用
 import sys                  # プログラム強制終了に使用（try部分）
+import time                 # 実行時間計算に使用
 from pathlib import Path    # 格納パスの作成に使用
 from sre_parse import expand_template
 
@@ -23,10 +24,9 @@ def create_map(start_name, end_name):
         start_lat, start_long = start_data[0], start_data[1]
         end_data = MapData.data[end_name][0]
         end_lat, end_long = end_data[0], end_data[1]
-    except KeyError as e:
+    except KeyError:
         print("辞書リストに存在しない名前が指定されています\n",
               "MapData.pyを確認してください")
-        print(e)
         sys.exit()
     except:
         print("取得段階で何らかのエラーが発生しました\n",
@@ -71,8 +71,9 @@ def create_map(start_name, end_name):
                 data=True)[shortest_path[i]]["x"]
             lat_2, long_2 = G.nodes(data=True)[
                 shortest_path[i+1]]["y"], G.nodes(data=True)[shortest_path[i+1]]["x"]
-            vec0, vec1 = [lat_1-lat_0, long_1-long_0,
-                          0], [lat_2-lat_1, long_2-long_1, 0]
+            #vec0 , vec1 = [lat_1-lat_0, long_1-long_0, 0]  , [lat_2-lat_1, long_2-long_1, 0]
+            vec0, vec1 = [long_1-long_0, lat_1-lat_0,
+                          0], [long_2-long_1, lat_2-lat_1, 0]
 
             absvec0, absvec1 = np.linalg.norm(vec0), np.linalg.norm(vec1)
             inner = np.inner(vec0, vec1)
@@ -82,21 +83,24 @@ def create_map(start_name, end_name):
             cross = np.cross(vec0, vec1)
 
             if theta > 45:
-                if cross[2] > 0:
+                if cross[2] < 0:
                     # print("右折")
                     direction = np.append(direction, "右折")
-                elif cross[2] < 0:
+                elif cross[2] > 0:
                     # print("左折")
                     direction = np.append(direction, "左折")
-                go = False
             else:
                 # print("直進")
                 direction = np.append(direction, "直進")
-                go = True
+
         distance = np.append(distance, nx.shortest_path_length(
             G, shortest_path[i-1], shortest_path[i], weight='length'))
-    direction = np.insert(direction, 0, "直進")
-
+            
+    if len(shortest_path) == 2:
+        direction = np.append(direction, "直進")
+    else:
+        direction = np.insert(direction , 0 , "直進")
+        
     i, j, k = 0, 0, 0
     while i < len(distance):
         if direction[i] == "直進":
@@ -125,24 +129,28 @@ def create_map(start_name, end_name):
         G, shortest_path, route_map=map, color="blue", tiles="OpenStreetMap")
 
     # 出発地点および到着地点のマーカーおよびポップアップ設定
+    # 変更前のリンク指定：<a href="https://maps.google.com/maps?q=&layer=c&cbll=' + str(MapData.data[start_name][1][0]) + ',' + str(MapData.data[start_name][1][1]) + '&cbp=11,0,0,0,0"  target="_blank">' + start_name + '（Googleストリートビュー）
     folium.Marker(start_point,
-                  popup='<h4><a href="https://maps.google.com/maps?q=&layer=c&cbll=' + str(MapData.data[start_name][1][0]) + ',' + str(
-                      MapData.data[start_name][1][1]) + '&cbp=11,0,0,0,0" target="_blank">' + start_name + '（Googleストリートビュー）'
-                  '<br/><br/><img width="320" height="240" src=../static/map_ctrl/' +
+                  popup='<h4><a href="https://www.google.com/maps/@?api=1&map_action=pano&parameters&viewpoint=' +
+                  str(MapData.data[start_name][1][0]) + ',' + str(MapData.data[start_name]
+                                                                  [1][1]) + '"  target="_blank">' + start_name + '（Googleストリートビュー）'
+                  '<br/><br/><img width="320" height="240" src=static/map_ctrl/' +
                   MapData.data[start_name][2] + '></h4></a>',
                   tooltip="出発地点：" + start_name, icon=folium.Icon(color="green", icon="glyphicon glyphicon-flag")).add_to(new_map)
 
-    folium.Marker(end_point, popup='<h4><a href="https://maps.google.com/maps?q=&layer=c&cbll=' + str(MapData.data[end_name][1][0]) + ',' + str(MapData.data[end_name][1][1]) + '&cbp=11,0,0,0,0" target="_blank">' + end_name + '（Googleストリートビュー）'
-                  '<br/><br/><img width="320" height="240" src=../static/map_ctrl/' +
+    folium.Marker(end_point,
+                  popup='<h4><a href="https://www.google.com/maps/@?api=1&map_action=pano&parameters&viewpoint=' +
+                  str(MapData.data[end_name][1][0]) + ',' + str(MapData.data[end_name]
+                                                                [1][1]) + '" target="_blank">' + end_name + '（Googleストリートビュー）'
+                  '<br/><br/><img width="320" height="240" src=static/map_ctrl/' +
                   MapData.data[end_name][2] + '></h4></a>',
                   tooltip="到着地点：" + end_name,  icon=folium.Icon(color="red", icon="glyphicon glyphicon-flag")).add_to(new_map)
 
     # 経路案内マップの出力
-
+    
     d = round(nx.shortest_path_length(
         G, start_node, end_node, weight='length'))
     t = round(nx.shortest_path_length(
         G, start_node, end_node, weight='length') / 82.5)
 
     return new_map, d, t, return_str
-
