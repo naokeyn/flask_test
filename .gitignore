@@ -13,8 +13,6 @@
 
 !*.graphml
 
-!test.sqlite3
-
 !static/
 !templates/
 !static/map_ctrl/
