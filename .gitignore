@@ -5,6 +5,7 @@
 !*.html
 !*.css
 !*.js
+!*.json
 !*.svg
 !*.png
 !*.jpg
