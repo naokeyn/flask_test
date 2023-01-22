@@ -1,3 +1,18 @@
+// json の読み込み
+let room_name
+
+let requestURL = 'static/room.json';
+let request = new XMLHttpRequest();
+
+request.open('GET', requestURL);
+request.responseType = 'json';
+request.send();
+
+request.onload = function() {
+  room_name = request.response;
+  room_name = JSON.parse(JSON.stringify(room_name));
+}
+
 // 目的地と出発地の入れ替え
 let change = () => {
 
