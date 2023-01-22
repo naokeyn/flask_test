@@ -17,3 +17,7 @@
     background-position: center right;
     border-bottom: #000 2px solid;
 }
+
+th {
+    min-width: 50px;
+}

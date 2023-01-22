@@ -4570,7 +4570,7 @@
       <data key="d12">service</data>
       <data key="d15">False</data>
       <data key="d16">False</data>
-      <data key="d17">95.337</data>
+      <data key="d17">11.337</data>
       <data key="d18">LINESTRING (139.6068903 35.8634828, 139.606884 35.8634186, 139.60682 35.86341)</data>
     </edge>
     <edge source="014" target="2176728423" id="0">
@@ -4578,7 +4578,7 @@
       <data key="d12">service</data>
       <data key="d15">False</data>
       <data key="d16">False</data>
-      <data key="d17">95.337</data>
+      <data key="d17">84.00</data>
       <data key="d18">LINESTRING (139.60682 35.86341, 139.6059078 35.8634729)</data>
     </edge>
     <edge source="014" target="2176728421" id="0">
@@ -4586,7 +4586,7 @@
       <data key="d12">service</data>
       <data key="d15">False</data>
       <data key="d16">False</data>
-      <data key="d17">95.337</data>
+      <data key="d17">11.337</data>
       <data key="d18">LINESTRING (139.60682 35.86341, 139.606884 35.8634186, 139.6068903 35.8634828)</data>
     </edge>
     <edge source="2176728423" target="014" id="0">
@@ -4594,7 +4594,7 @@
       <data key="d12">service</data>
       <data key="d15">False</data>
       <data key="d16">False</data>
-      <data key="d17">95.337</data>
+      <data key="d17">84.00</data>
       <data key="d18">LINESTRING (139.6059078 35.8634729, 139.60682 35.86341)</data>
     </edge>
 

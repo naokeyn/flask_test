@@ -112,15 +112,20 @@ du -hs /tmp ~/.[!.]* ~/* | sort -h
 - JS 正規表現 : [Qiita](https://qiita.com/iLLviA/items/b6bf680cd2408edd050f)
 - Flask urlのデータ : [webサイト](https://www.web-dev-qa-db-ja.com/ja/python/flask%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%81%AEurl%E3%81%AE%E3%81%95%E3%81%BE%E3%81%96%E3%81%BE%E3%81%AA%E9%83%A8%E5%88%86%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF%E3%81%A9%E3%81%86%E3%81%99%E3%82%8C%E3%81%B0%E3%82%88%E3%81%84%E3%81%A7%E3%81%99%E3%81%8B%EF%BC%9F/1072136546/)
 - Flask フラッシュメッセージ : [Flask 公式サイト](https://msiz07-flask-docs-ja.readthedocs.io/ja/latest/patterns/flashing.html)
+- VSCode SQLite Browser : [Qitta](https://qiita.com/ritya/items/098835a96f3fcf7c6661)
 - 
 
 
 ```mermaid
 gantt
 
-title 予定
+title スケジュール
 デバック : debug, 2022-12-20, 2022-12-31
 データベースの設計 : db, 2022-12-20, 2022-12-31
+
+教育企画課訪問 : visit, 2023-01-17, 2023-01-18
+申請書類 : document, 2023-01-19, 2023-01-20
+公開 : release, 2023-01-23, 2023-02-28
 
 
 ```

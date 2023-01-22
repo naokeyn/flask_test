@@ -114,6 +114,7 @@ def result():
             data = {
                 "name": df["subject_name"].tolist(),        # 講義名
                 "time": df["day_period"].tolist(),          # 曜日 + 時限
+                "tearm": df["tearm"].tolist(),              # 開講ターム
                 # "teac": df["teacher"].tolist(),             # 教員名
                 "room": df["room"].tolist(),                # 教室
                 "buil": df["building"].tolist(),            # 建物名
@@ -142,6 +143,7 @@ def show_all():
     data = {
         "name": df["subject_name"].tolist(),        # 講義名
         "time": df["day_period"].tolist(),          # 曜日 + 時限
+        "tearm": df["tearm"].tolist(),
         # "teac": df["teacher"].tolist(),             # 教員名
         "room": df["room"].tolist(),                # 教室
         "buil": df["building"].tolist(),            # 建物名

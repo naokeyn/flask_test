@@ -25,7 +25,8 @@
         <table class="table table-bordered" id="table">
             <thead>
                 <tr class="table-danger">
-                    <th scope="col">講義名</th>
+                    <th scope="row">講義名</th>
+                    <th scope="col">ターム</th>
                     <th scope="col">曜日</th>
                     <th scope="col">教室</th>
                     {#
@@ -35,15 +36,20 @@
             <tbody>
                 {% for i in range(data["length"]) %}
                 <tr>
-                    <th>
-                        <div class="m-2">
+                    <th scope="row">
+                        <div class="mt-2">
                             <a class="text-dark" href="{{ data['syll'][i] }}" target="blank">
                                 {{ data["name"][i] }}
                             </a>
                         </div>
                     </th>
                     <th>
-                        <div class="m-2">
+                        <div class="mt-2">
+                            {{ data["tearm"][i] }}
+                        </div>
+                    </th>
+                    <th>
+                        <div class="mt-2">
                             {{ data["time"][i] }}
                         </div>
                     </th>
@@ -61,6 +67,7 @@
                         </form>
                         {% endif %}
                     </th>
+
                     {#
                     <!-- 教員名の表示
                     <th>
