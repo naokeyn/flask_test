@@ -1,6 +1,6 @@
 from flask import Flask, render_template, \
     request, redirect, url_for, Markup
-from flask_httpauth import HTTPBasicAuth
+# from flask_httpauth import HTTPBasicAuth
 
 from sqlalchemy import create_engine
 from bs4 import BeautifulSoup
@@ -11,13 +11,13 @@ import MapData
 from create_map import create_map
 
 app = Flask(__name__)
-auth = HTTPBasicAuth()
+# auth = HTTPBasicAuth()
 
 # id_listの読み込み
-with open("id_list.txt", "r") as r:
-    id, pw = r.read().split("\n")
+# with open("id_list.txt", "r") as r:
+#     id, pw = r.read().split("\n")
 
-id_list = {id: pw}
+# id_list = {id: pw}
 
 # データベースの読み込み
 engine = create_engine("sqlite:///db.sqlite3", encoding="utf-8", echo=False)
@@ -59,10 +59,10 @@ def map_data(start, end):
     return data
 
 # Basic認証
-@auth.get_password
-def get_pw(id):
-    if id in id_list:
-        return id_list.get(id)
+# @auth.get_password
+# def get_pw(id):
+#     if id in id_list:
+#         return id_list.get(id)
 
     return None
 
@@ -77,7 +77,7 @@ def page_not_found(error):
 
 
 @app.route("/", methods=["GET"])
-@auth.login_required
+# @auth.login_required
 def index():
     return render_template("index.html")
 
@@ -123,7 +123,7 @@ def result():
                 "query": query                              # 検索キーワード
             }
 
-            return render_template("result.html", data=data)
+            return render_template("result.html", data=data, loading=False)
 
         else:
             data = {
@@ -135,7 +135,7 @@ def result():
 
 
 @app.route("/all", methods=["GET", "POST"])
-@auth.login_required
+# @auth.login_required
 def show_all():
     df = data_base.copy()
     query = "すべて"
@@ -152,7 +152,7 @@ def show_all():
         "query": query                              # 検索キーワード
     }
 
-    return render_template('result.html', data=data)
+    return render_template('result.html', data=data, loading=True)
 
 
 @app.route("/map", methods=["GET", "POST"])

@@ -1,8 +1,3 @@
-window.onload = () => {
-    let loading = document.getElementById('loading')
-    loading.classList.add('loaded')
-}
-
 let rewrite = (target) => {
 
     let source

@@ -10,10 +10,8 @@
 
 <html>
 
-<div id="loading" class="text-center">
-    <div class="loader">
-        loading...
-    </div>
+<div id="loading-canvas" class="text-center">
+    <canvas id="myCanvas" width="400" height="400"></canvas>
 </div>
 
 <div class="container">
@@ -139,6 +137,7 @@
 </html>
 
 <script src="../static/map.js"></script>
+<script src="../static/loading.js"></script>
 <script>
     // 目的地と出発地の入れ替え
     let change = () => {

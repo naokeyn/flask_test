@@ -2,6 +2,7 @@
 
 {% block header %}
 
+{%if not loading %}
 <!-- jQuery & tablesorter -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript"
@@ -10,15 +11,42 @@
 <link rel="stylesheet" href="../static/tablesort.css">
 <script type="text/javascript" src="../static/tablesort.js"></script>
 
+{% endif %}
+
+{% if loading %}
+
+<link rel="stylesheet" href="../static/map_loading.css">
+
+{% endif %}
+
 {% endblock %}
 
 {% block script %}
 
+{% if loading %}
+
+<div id="loading-canvas" class="text-center">
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+</div>
+<script src="../static/loading.js"></script>
+
+{% endif %}
+
 <div class="container">
     <div class="row">
-        <p>
-            全{{ data["length"] }}件（キーワード：{{ data["query"] }}）
-        </p>
+        <div class="col-lg-6">
+            <p>
+                全{{ data["length"] }}件（キーワード：{{ data["query"] }}）
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <p>
+                データは
+                <a target="_blank" href="http://syllabus.saitama-u.ac.jp/portal/public/syllabus/">埼玉大学シラバス</a>
+                から取得しました（取得日：2022/11/01）
+            </p>
+        </div>
+
     </div>
 
     <div class="row">
