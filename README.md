@@ -1,7 +1,7 @@
 # flask を使用したwebアプリの開発
 
 ## デモ
-[Pythonanywhere](https://naokey.pythonanywhere.com/)
+[OMNI LEADER](https://naokey.pythonanywhere.com/)(2023.03.31まで公開)
 
 ## 仮想環境の構築
 
@@ -25,23 +25,64 @@ deactivate
 ```
 .
 ├── templates
-│   ├── template.html
+│   ├── 400.html
+│   ├── 404.html
 │   ├── index.html
-│   ├── show_all.html
-│   ├── result.html
-│   ├── page_not_found.html
-│   └── road_network.html
+│   ├── map.html
+│   ├── overflow.html
+│   ├── resutl.html
+│   ├── room.html
+│   └── template.html
 ├── static
-│   ├── tablesort.css
-│   ├── tablesort.js
-│   ├── icon, tag, etc.
-│   ├── image
-│   └── road_network.graphml
+│   ├── map_ctrl
+│   │   └── road_network.graphml
+│   │       └── img
+│   │           ├── 1.jpg
+│   │           ├── 2.jpg
+│   │           └── ...
+│   ├── *.css
+│   ├── *.js
+│   └── imgs etc.
 ├── main.py
 ├── create_map.py
-├── MapData.py
+├── MatData.py
 └── db.sqlite3
 ```
+
+### データベースの作成
+#### 手順
+
+1. シラバスの構成を調べる
+   - 情報の取得方法を考える
+2. 全ての授業のリンクを取得
+3. 取得したリンクから講義情報を取得
+
+#### シラバスの構成
+
+[シラバスの検索画面](http://syllabus.saitama-u.ac.jp/)
+- 動的サイト
+- 開講学部ごとなら全ての講義を見れる
+- 各授業ごとのリンクがある
+
+#### 全ての授業のリンクを取得
+
+- 動的サイトのスクレイピング
+- ブラウザ操作が必要
+  - web driverを使用
+  - selenium
+
+#### 取得したリンクから講義情報を取得
+
+- リンクから取得
+- 静的サイトのスクレイピングと同じ手法でできる
+  - セレクタを指定
+  - BeautifulSoup
+
+#### データの保管
+
+- データベースとして保管
+- sqlite3を使用
+- 特に意味はない
 
 ### サーバサイド
 - Python
@@ -120,14 +161,24 @@ du -hs /tmp ~/.[!.]* ~/* | sort -h
 
 ```mermaid
 gantt
+dateFormat YY-MM-DD
 
 title スケジュール
-デバック : debug, 2022-12-20, 2022-12-31
-データベースの設計 : db, 2022-12-20, 2022-12-31
+section 開発
+構想: idea, 22-10-01, 22-10-31
+プログラムの勉強: study, 22-10-01, 22-12-31
+ひな形の作成: struct, 22-10-15, 22-10-31
+データベースの作成: db, 22-11-01, 1d
+サーバサイドの設計: server, after db, 22-12-30
 
-教育企画課訪問 : visit, 2023-01-17, 2023-01-18
-申請書類 : document, 2023-01-19, 2023-01-20
-公開 : release, 2023-01-23, 2023-02-28
+レイアウトの調整: layout, 22-11-30, 23-01-07
+
+
+section 公開
+教育企画課訪問 : done, visit, 23-01-17, 23-01-18
+申請書類 : done, document, 23-01-19, 23-01-20
+公開 : active, release, 23-01-23, 23-03-31
+期末発表: presen, 23-02-07, 1d
 
 
 ```
