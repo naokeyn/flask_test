@@ -1,16 +1,23 @@
+# webアプリ用のフレームワーク
 from flask import Flask, render_template, \
     request, redirect, url_for, Markup
 # from flask_httpauth import HTTPBasicAuth
 
+# データベース操作
 from sqlalchemy import create_engine
-from bs4 import BeautifulSoup
-
 import pandas as pd
 
+# HTMLの抽出
+from bs4 import BeautifulSoup
+
+# 大野様が作ってくださったプログラム
 import MapData
 from create_map import create_map
 
+# おまじない
 app = Flask(__name__)
+
+# Basic認証
 # auth = HTTPBasicAuth()
 
 # id_listの読み込み
@@ -224,6 +231,6 @@ def room_result():
     
     return redirect(url_for('map', start=start, end=end))
 
-
+# プログラムの実行
 if __name__ == "__main__":
     app.run(debug=True)
