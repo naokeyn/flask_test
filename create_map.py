@@ -24,6 +24,12 @@ def create_map(start_name, end_name):
         start_lat, start_long = start_data[0], start_data[1]
         end_data = MapData.data[end_name][0]
         end_lat, end_long = end_data[0], end_data[1]
+
+        if start_name in MapData.exception_name:
+            start_lat, start_long = 35.86094, 139.60693
+        elif end_name in MapData.exception_name:
+            end_lat, end_long = 35.86094, 139.60693
+
     except KeyError:
         print("辞書リストに存在しない名前が指定されています\n",
               "MapData.pyを確認してください")
@@ -95,12 +101,12 @@ def create_map(start_name, end_name):
 
         distance = np.append(distance, nx.shortest_path_length(
             G, shortest_path[i-1], shortest_path[i], weight='length'))
-            
+
     if len(shortest_path) == 2:
         direction = np.append(direction, "直進")
     else:
-        direction = np.insert(direction , 0 , "直進")
-        
+        direction = np.insert(direction, 0, "直進")
+
     i, j, k = 0, 0, 0
     while i < len(distance):
         if direction[i] == "直進":
@@ -127,6 +133,8 @@ def create_map(start_name, end_name):
     # 最短経路探索結果の可視化
     new_map = ox.plot_route_folium(
         G, shortest_path, route_map=map, color="blue", tiles="OpenStreetMap")
+    start_point = (start_data[0], start_data[1])
+    end_point = (end_data[0], end_data[1])
 
     # 出発地点および到着地点のマーカーおよびポップアップ設定
     # 変更前のリンク指定：<a href="https://maps.google.com/maps?q=&layer=c&cbll=' + str(MapData.data[start_name][1][0]) + ',' + str(MapData.data[start_name][1][1]) + '&cbp=11,0,0,0,0"  target="_blank">' + start_name + '（Googleストリートビュー）
@@ -146,8 +154,6 @@ def create_map(start_name, end_name):
                   MapData.data[end_name][2] + '></h4></a>',
                   tooltip="到着地点：" + end_name,  icon=folium.Icon(color="red", icon="glyphicon glyphicon-flag")).add_to(new_map)
 
-    # 経路案内マップの出力
-    
     d = round(nx.shortest_path_length(
         G, start_node, end_node, weight='length'))
     t = round(nx.shortest_path_length(

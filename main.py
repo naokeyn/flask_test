@@ -71,7 +71,7 @@ def map_data(start, end):
 #     if id in id_list:
 #         return id_list.get(id)
 
-    return None
+    # return None
 
 @app.errorhandler(400)
 def invalid_request(error):
