@@ -159,7 +159,8 @@ du -hs /tmp ~/.[!.]* ~/* | sort -h
 - Flask フラッシュメッセージ : [Flask 公式サイト](https://msiz07-flask-docs-ja.readthedocs.io/ja/latest/patterns/flashing.html)
 - VSCode SQLite Browser : [Qitta](https://qiita.com/ritya/items/098835a96f3fcf7c6661)
 - JavaScriptでjsonの読み込み：[webサイト](https://muttaan.com/js-json/)
-- 
+
+- 歩行速度の参考：[株式会社アップオン](https://ihoujin.nagoya/gait-speed/)
 
 
 ```mermaid
